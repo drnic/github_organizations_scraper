@@ -12,7 +12,7 @@ Currently it's just a CLI app; but returns pretty strings or JSON.
 
     $ gem install github_organizations_scraper
     
-    $ github_organizations_scraper gitub
+    $ github_organizations_scraper github
     defunkt, Chris Wanstrath, 95 public repos, 1,372 followers
     holman, Zach Holman, 22 public repos, 68 followers
     kneath, Kyle Neath, 15 public repos, 193 followers
