@@ -1,6 +1,7 @@
 source :gemcutter
 
 gem 'awesome_print', '0.2.1', :require => 'ap'
+gem 'nokogiri', '1.4.2'
 
 group :newgem do
   gem 'hoe', '>= 2.6.1'

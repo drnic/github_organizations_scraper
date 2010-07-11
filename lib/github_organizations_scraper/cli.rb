@@ -1,42 +1,48 @@
 require 'optparse'
+require 'open-uri'
+require 'nokogiri'
 
 module GithubOrganizationsScraper
   class CLI
     def self.execute(stdout, arguments=[])
 
-      # NOTE: the option -p/--path= is given as an example, and should be replaced in your application.
-
-      options = {
-        :path     => '~'
-      }
-      mandatory_options = %w(  )
+      options = {}
 
       parser = OptionParser.new do |opts|
         opts.banner = <<-BANNER.gsub(/^          /,'')
-          This application is wonderful because...
+          Display the members of an organisation account on GitHub.
 
           Usage: #{File.basename($0)} [options]
 
           Options are:
         BANNER
         opts.separator ""
-        opts.on("-p", "--path PATH", String,
-                "This is a sample message.",
-                "For multiple lines, add more strings.",
-                "Default: ~") { |arg| options[:path] = arg }
+        # opts.on("-j", "--json",
+        #         "Display results in JSON format") { options[:json] = true }
         opts.on("-h", "--help",
                 "Show this help message.") { stdout.puts opts; exit }
         opts.parse!(arguments)
 
-        if mandatory_options && mandatory_options.find { |option| options[option.to_sym].nil? }
-          stdout.puts opts; exit
-        end
       end
-
-      path = options[:path]
-
-      # do stuff
-      stdout.puts "To update this executable, look in lib/github_organizations_scraper/cli.rb"
+      
+      account = arguments.shift
+      doc = Nokogiri::HTML(open("http://github.com/#{account}"))
+      members = doc.search("ul.org-members li").map do |member|
+        account = member.search("h4 a").text
+        if member.search("h4 em").text =~ /\((.*)\)/
+          name  = $1
+        end
+        { :account => account, :name => name }
+      end
+      
+      display_members_tty(stdout, members)
+    end
+    
+    def self.display_members_tty(stdout, members)
+      members.each do |member|
+        details = [member[:account], member[:name]].reject { |d| d.nil? }
+        stdout.puts details.join(" - ")
+      end
     end
   end
 end
