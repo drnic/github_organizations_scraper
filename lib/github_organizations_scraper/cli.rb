@@ -17,8 +17,8 @@ module GithubOrganizationsScraper
           Options are:
         BANNER
         opts.separator ""
-        # opts.on("-j", "--json",
-        #         "Display results in JSON format") { options[:json] = true }
+        opts.on("-j", "--json",
+                "Display results in JSON format") { options[:json] = true }
         opts.on("-h", "--help",
                 "Show this help message.") { stdout.puts opts; exit }
         opts.parse!(arguments)
@@ -29,22 +29,31 @@ module GithubOrganizationsScraper
       html = Net::HTTP.get(URI.parse("http://github.com/#{account}"))
       doc = Nokogiri::HTML(html)
       members = doc.search("ul.org-members li").map do |member|
-        account = member.search("h4 a").text
+        login = member.search("h4 a").text
         if member.search("h4 em").text =~ /\((.*)\)/
-          name  = $1
+          name = $1
         end
         repo_summary = member.search("p").text
-        { :account => account, :name => name, :repo_summary => repo_summary }
+        { :login => login, :name => name, :repo_summary => repo_summary }
       end
       
-      display_members_tty(stdout, members)
+      if options[:json]
+        display_members_json(stdout, members)
+      else
+        display_members_tty(stdout, members)
+      end
     end
     
     def self.display_members_tty(stdout, members)
       members.each do |member|
-        details = [member[:account], member[:name], member[:repo_summary]].reject { |d| d.nil? }
+        details = [member[:login], member[:name], member[:repo_summary]].reject { |d| d.nil? }
         stdout.puts details.join(", ")
       end
+    end
+    
+    def self.display_members_json(stdout, members)
+      require "json"
+      stdout.print members.map { |mem| { "user" => mem } }.to_json
     end
   end
 end

@@ -11,7 +11,9 @@ features/development.feature
 features/fixtures/drnic.html
 features/fixtures/engineyard.html
 features/step_definitions/common_steps.rb
+features/step_definitions/executable_steps.rb
 features/step_definitions/github_steps.rb
+features/step_definitions/json_steps.rb
 features/support/common.rb
 features/support/env.rb
 features/support/fakeweb.rb

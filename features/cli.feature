@@ -9,6 +9,11 @@ Feature: Command line interface
     Then I should see "wycats, Yehuda Katz, 69 public repos, 998 followers"
     Then I should see "tpoland, 1 public repos, 0 followers"
   
+  Scenario: Display members of a github organization as JSON
+    Given a github organization "engineyard"
+    When I run the executable with arguments "engineyard --json"
+    Then I should see valid JSON
+  
   Scenario: Display error for normal github user
     Given a github user "drnic"
     When I run the executable with arguments "drnic"
