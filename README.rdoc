@@ -1,32 +1,22 @@
-= github_organizations_scraper
+= Scrape Github Organization member information
 
-* http://github.com/#{github_username}/#{project_name}
+* http://github.com/drnic/github_organizations_scraper
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Scrape Github Organization member information. Currently, the Github API doesn't support the new Organizations feature. This CLI scrapes the list of members for an Organization.
 
-== FEATURES/PROBLEMS:
+== INSTALL/USAGE:
 
-* FIX (list of features or problems)
-
-== SYNOPSIS:
-
-  FIX (code sample of usage)
-
-== REQUIREMENTS:
-
-* FIX (list of requirements)
-
-== INSTALL:
-
-* FIX (sudo gem install, anything else)
+    gem install github_organizations_scraper
+    github_organizations_scraper engineyard
+    github_organizations_scraper github --json
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2010 FIXME full name
+Copyright (c) 2010 Dr Nic Williams, drnicwilliams@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
