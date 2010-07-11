@@ -1,5 +1,5 @@
 require 'optparse'
-require 'open-uri'
+require 'net/http'
 require 'nokogiri'
 
 module GithubOrganizationsScraper
@@ -26,13 +26,15 @@ module GithubOrganizationsScraper
       end
       
       account = arguments.shift
-      doc = Nokogiri::HTML(open("http://github.com/#{account}"))
+      html = Net::HTTP.get(URI.parse("http://github.com/#{account}"))
+      doc = Nokogiri::HTML(html)
       members = doc.search("ul.org-members li").map do |member|
         account = member.search("h4 a").text
         if member.search("h4 em").text =~ /\((.*)\)/
           name  = $1
         end
-        { :account => account, :name => name }
+        repo_summary = member.search("p").text
+        { :account => account, :name => name, :repo_summary => repo_summary }
       end
       
       display_members_tty(stdout, members)
@@ -40,8 +42,8 @@ module GithubOrganizationsScraper
     
     def self.display_members_tty(stdout, members)
       members.each do |member|
-        details = [member[:account], member[:name]].reject { |d| d.nil? }
-        stdout.puts details.join(" - ")
+        details = [member[:account], member[:name], member[:repo_summary]].reject { |d| d.nil? }
+        stdout.puts details.join(", ")
       end
     end
   end

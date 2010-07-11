@@ -4,9 +4,6 @@ Bundler.setup
 require "rspec"
 require "cucumber"
 
-$:.unshift(File.dirname(__FILE__) + '/../../lib')
-require 'github_organizations_scraper'
-
 Before do
   @tmp_root = File.dirname(__FILE__) + "/../../tmp"
   @home_path = File.expand_path(File.join(@tmp_root, "home"))
