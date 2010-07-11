@@ -1,3 +1,4 @@
+.bundle/config
 .rspec
 Gemfile
 History.txt
@@ -7,9 +8,13 @@ Rakefile
 bin/github_organizations_scraper
 features/cli.feature
 features/development.feature
+features/fixtures/drnic.html
+features/fixtures/engineyard.html
 features/step_definitions/common_steps.rb
+features/step_definitions/github_steps.rb
 features/support/common.rb
 features/support/env.rb
+features/support/fakeweb.rb
 features/support/matchers.rb
 lib/github_organizations_scraper.rb
 lib/github_organizations_scraper/cli.rb

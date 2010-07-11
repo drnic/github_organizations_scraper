@@ -1,5 +1,6 @@
 source :gemcutter
 
+gem 'awesome_print', '0.2.1', :require => 'ap'
 
 group :newgem do
   gem 'hoe', '>= 2.6.1'
@@ -10,6 +11,7 @@ group :development do
   gem 'bundler'
   gem 'rspec', ">= 2.0.0.beta"
   gem 'cucumber', '0.8.3'
+  gem 'fakeweb', '1.2.8'
 end
 
 group :spec do
@@ -19,4 +21,5 @@ end
 group :cucumber do
   gem 'rspec', ">= 2.0.0.beta"
   gem 'cucumber', '0.8.3'
+  gem 'fakeweb', '1.2.8'
 end

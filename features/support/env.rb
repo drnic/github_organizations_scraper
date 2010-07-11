@@ -1,6 +1,8 @@
-require "bundler"
+require "bundler" # bundler 0.9.26
 Bundler.setup
-Bundler.require :cucumber
+
+require "rspec"
+require "cucumber"
 
 $:.unshift(File.dirname(__FILE__) + '/../../lib')
 require 'github_organizations_scraper'
