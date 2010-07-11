@@ -1,0 +1,13 @@
+pkg
+doc
+.DS_Store
+tmp
+*.log
+.test-result
+*.mode1v3
+*.pbxuser
+.DS_Store
+features/fixtures/*/build
+*.tmproj
+*.gem
+.bundle
